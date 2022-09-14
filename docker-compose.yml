@@ -1,0 +1,20 @@
+services:
+    app:
+        container_name: app
+        restart: always
+        build: .
+        ports:
+            - "3000:3000"
+        links:
+            - mongo
+        volumes:
+            - .:/app
+            - notused:/app/node_modules
+        command: npm run start
+    mongo:
+        container_name: mongo
+        image: mongo
+        ports:
+            - "${MONGO_PORT}:${MONGO_PORT}"
+volumes:
+    notused:

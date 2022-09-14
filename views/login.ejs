@@ -1,0 +1,48 @@
+<% layout('_layout') -%>
+
+<form autocomplete="off" action="/interaction/<%= uid %>/login" method="post">
+  <input required type="text" name="login" placeholder="Enter any login" <% if (!params.login_hint) { %>autofocus="on"<% } else { %> value="<%= params.login_hint %>" <% } %>>
+  <input required type="password" name="password" placeholder="and password" <% if (params.login_hint) { %>autofocus="on"<% } %>>
+  <a href="/signup">signup</a>
+  <button type="submit" class="login login-submit">Login</button>
+</form>
+<a href="/signup">signup</a>
+<div class="login-help">
+  <a href="/signup">signup</a>
+  <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a>
+  <% if (client.tosUri) { %>
+    <a href="<%= client.tosUri %>">[ Terms of Service ]</a>
+  <% } %>
+  <% if (client.policyUri) { %>
+    <a href="<%= client.policyUri %>">[ Privacy Policy ]</a>
+  <% } %>
+</div>
+
+<div class="grant-debug">
+  <details>
+    <summary style="text-align: center"
+      >(Click to expand) DEBUG information</summary
+    >
+    <div> <strong>uid</strong>: <%= uid %> </div>
+
+    <% if (session) { %>
+    <div>
+      SESSION <br />
+      ========= <br />
+      <%- session %>
+    </div>
+    <% } %>
+
+    <div>
+      PARAMS <br />
+      ======== <br />
+      <%- dbg.params %>
+    </div>
+
+    <div>
+      PROMPT <br />
+      ======== <br />
+      <%- dbg.prompt %>
+    </div>
+  </details>
+</div>
